@@ -31,7 +31,7 @@ public class FileChooser extends CordovaPlugin {
     }
 
     private void open(CallbackContext callbackContext) {
-        Intent intent = new Intent(null, FileChooserActivity.class);
+        Intent intent = new Intent(null, MainActivity.class);
         cordova.startActivityForResult(this, intent, 0);
 
         PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
