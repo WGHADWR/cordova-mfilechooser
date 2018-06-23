@@ -1,0 +1,25 @@
+{
+  "name": "cordova-mfilechooser",
+  "version": "0.0.1",
+  "description": "Cordova FileChooser Plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WGHADWR/cordova-mfilechooser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WGHADWR/cordova-mfilechooser/issues"
+  },
+  "homepage": "https://github.com/WGHADWR/cordova-mfilechooser#readme",
+  "cordova": {
+    "id": "cordova-mfilechooser",
+    "platforms": [
+      "android"
+    ]
+  }
+}

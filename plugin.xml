@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-mfilechooser" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>mfilechooser</name>
+    <js-module name="mfilechooser" src="www/mfilechooser.js">
+        <clobbers target="cordova.plugins.mfilechooser" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/widget">
+            <feature name="mFileChooser">
+                <param name="android-package" value="com.gx.filechooser.FileChooser"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/FileChooser.java" target-dir="src/com/gx/filechooser"/>
+        <source-file src="src/android/FileChooserActivity.java" target-dir="src/com/gx/filechooser"/>
+    </platform>
+</plugin>
