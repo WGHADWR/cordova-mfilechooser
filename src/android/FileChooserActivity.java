@@ -31,7 +31,7 @@ public class FileChooserActivity extends AppCompatActivity {
     private List<Map<String, Object>> listItems;
     private SimpleAdapter adapter;
 
-    private List<String> selectedFiles = new ArrayList<>();
+    private List<String> selectedFiles = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
