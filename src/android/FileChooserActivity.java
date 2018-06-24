@@ -9,6 +9,6 @@ public class FileChooserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getApplication().getResources().getIdentifier(
-                "activity_fileChooser", "layout", getApplication().getPackageName()));
+                "activity_filechooser", "layout", getApplication().getPackageName()));
     }
 }
