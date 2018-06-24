@@ -13,5 +13,7 @@
         </config-file>
         <source-file src="src/android/FileChooser.java" target-dir="src/com/gx/filechooser"/>
         <source-file src="src/android/MainActivity.java" target-dir="src/com/gx/filechooser"/>
+
+        <source-file src="src/android/layout/activity_main.xml" target-dir="res/layout" />
     </platform>
 </plugin>
