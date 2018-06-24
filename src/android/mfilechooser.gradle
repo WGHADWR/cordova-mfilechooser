@@ -1,5 +1,5 @@
 repositories{
-  jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -8,5 +8,6 @@ dependencies {
 }
 
 android {
-
+    compileSdkVersion 16
+    buildToolsVersion "24.0.0"
 }
