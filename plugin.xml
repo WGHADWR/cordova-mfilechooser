@@ -19,9 +19,9 @@
         </config-file>
 
         <source-file src="src/android/FileChooser.java" target-dir="src/com/gx/filechooser"/>
-        <source-file src="src/android/MainActivity.java" target-dir="src/com/gx/filechooser"/>
+        <source-file src="src/android/FileChooserActivity.java" target-dir="src/com/gx/filechooser"/>
 
-        <source-file src="src/android/res/layout/activity_main.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/activity_fileChooser.xml" target-dir="res/layout" />
         <source-file src="src/android/res/values/colors.xml" target-dir="res/values" />
         <source-file src="src/android/res/values/strings.xml" target-dir="res/values" />
         <source-file src="src/android/res/drawable/arrow_left.png" target-dir="res/drawable" />

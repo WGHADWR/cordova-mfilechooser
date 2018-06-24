@@ -31,13 +31,13 @@ public class FileChooser extends CordovaPlugin {
     }
 
     private void open(CallbackContext callbackContext) {
-        Intent intent = new Intent(null, MainActivity.class);
+        Intent intent = new Intent(this.cordova.getActivity(), com.gx.filechooser.FileChooserActivity.class);
         cordova.startActivityForResult(this, intent, 0);
 
-        PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
-        pluginResult.setKeepCallback(true);
-        this.callback = callbackContext;
-        callbackContext.sendPluginResult(pluginResult);
+        // PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+        // pluginResult.setKeepCallback(true);
+        // this.callback = callbackContext;
+        // callbackContext.sendPluginResult(pluginResult);
     }
 
     @Override
