@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FileChooser</string>
+    <string name="activity_name">com.gx.filechooser.FileChooserActivity</string>
+    <string name="launcher_name">FileChooser</string>
 </resources>
