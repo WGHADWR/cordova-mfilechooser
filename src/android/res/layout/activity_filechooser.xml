@@ -1,62 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gx.filechooser.FileChooserActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/colorPrimary">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnBack"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="match_parent"
                 android:background="#00000000"
                 android:drawableLeft="@drawable/arrow_left"
-                android:paddingLeft="10dp" />
+                android:paddingLeft="10dp"
+                android:drawableStart="@drawable/arrow_left"
+                android:onClick="onBack"/>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
+                android:singleLine="true"
                 android:text="TextView"
-                android:textSize="16sp" />
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnOK"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="#00000000"
+            android:enabled="false"
             android:minWidth="64dp"
-            android:text="确定" />
-            
+            android:onClick="onOK"
+            android:text="确定"
+            android:textColor="#c3c3c3" />
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
