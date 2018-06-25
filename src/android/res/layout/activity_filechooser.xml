@@ -56,6 +56,7 @@
             android:background="#00000000"
             android:minWidth="64dp"
             android:text="确定" />
+            
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
