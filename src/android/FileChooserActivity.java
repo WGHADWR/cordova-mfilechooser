@@ -1,14 +1,13 @@
 package com.gx.filechooser;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class FileChooserActivity extends Activity {
+public class FileChooserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getApplication().getResources().getIdentifier(
-                "activity_filechooser", "layout", getApplication().getPackageName()));
+        setContentView(R.layout.activity_filechooser);
     }
 }
