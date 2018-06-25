@@ -1,5 +1,9 @@
 var exec = require('cordova/exec');
 
-exports.open = function (arg0, success, error) {
+var mfilechooser = {};
+
+mfilechooser.open = function (arg0, success, error) {
     exec(success, error, 'mfilechooser', 'open', [arg0]);
 };
+
+module.exports = mfilechooser;
