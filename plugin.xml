@@ -7,7 +7,7 @@
 
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/widget">
-            <feature name="FileChooser">
+            <feature name="mfilechooser">
                 <param name="android-package" value="com.gx.filechooser.FileChooser"/>
             </feature>
         </config-file>
