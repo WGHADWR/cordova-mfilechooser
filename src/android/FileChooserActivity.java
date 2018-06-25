@@ -37,10 +37,10 @@ public class FileChooserActivity extends Activity {
         setContentView(this.getApplication().getResources().getIdentifier(
                 "activity_filechooser", "layout", getApplication().getPackageName()));
 
-        this.title = findViewById(R.id.title);
+        this.title = (TextView) this.findViewById("title");
         this.title.setText(this.path);
 
-        final ListView listView = this.findViewById(R.id.list_view);
+        final ListView listView = (ListView) this.findViewById("list_view");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -63,17 +63,24 @@ public class FileChooserActivity extends Activity {
         });
 
         String[] from = { "image", "title" };
-        int[] to = { R.id.imageView, R.id.textView2 };
+
+        int imageView = this.findIdentifier("imageView", "id");
+        int textView = this.findIdentifier("textView2", "id");
+        int itemLayout = this.findIdentifier("listview_item", "layout");
+
+        int[] to = { imageView, textView };
 
         this.listItems = this.getListItems(this.path);
         this.adapter = new SimpleAdapter(
-                this, this.listItems, R.layout.listview_item, from, to);
+                this, this.listItems, itemLayout, from, to);
         listView.setAdapter(this.adapter);
+
+
     }
 
     private void clearSelectedFiles() {
         this.selectedFiles.clear();
-        Button okButton = findViewById(R.id.btnOK);
+        Button okButton = (Button) findViewById("btnOK");
         okButton.setText("确定");
         okButton.setEnabled(false);
         okButton.setTextColor(Color.parseColor("#C3C3C3"));
@@ -91,7 +98,7 @@ public class FileChooserActivity extends Activity {
         if (this.selectedFiles.isEmpty()) {
             this.clearSelectedFiles();
         } else {
-            Button okButton = findViewById(R.id.btnOK);
+            Button okButton = (Button) findViewById("btnOK");
             okButton.setText("确定(" + this.selectedFiles.size() + ")");
             okButton.setEnabled(true);
             okButton.setTextColor(Color.WHITE);
@@ -139,12 +146,15 @@ public class FileChooserActivity extends Activity {
         List<File> files = FileUtils.sort(Arrays.asList(subFiles));
         files = FileUtils.sort(files);
 
+        int defFolder = this.findIdentifier("folder_default", "drawable");
+        int defFile = this.findIdentifier("file_x72", "drawable");
+
         for (File file : files) {
             Map<String, Object> item = new HashMap<String, Object>();
             if (file.isDirectory()) {
-                item.put("image", R.drawable.folder_default);
+                item.put("image", defFolder);
             } else {
-                item.put("image", R.drawable.file_x72);
+                item.put("image", defFile);
             }
             item.put("title", file.getName());
 
@@ -155,5 +165,13 @@ public class FileChooserActivity extends Activity {
 
     private File[] getSubFiles(String parent) {
         return (new File(parent)).listFiles();
+    }
+
+    private View findViewById(String id) {
+        return this.findViewById(findIdentifier(id, "id"));
+    }
+
+    private int findIdentifier(String id, String defType) {
+        return getApplication().getResources().getIdentifier(id, defType, getApplication().getPackageName());
     }
 }
