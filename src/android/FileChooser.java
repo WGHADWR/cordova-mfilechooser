@@ -10,7 +10,9 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileChooser extends CordovaPlugin {
@@ -50,7 +52,18 @@ public class FileChooser extends CordovaPlugin {
             Bundle bundle = intent.getExtras();
             List<String> selectedFiles = bundle.getStringArrayList("selectedFiles");
 
-            JSONArray jsonArray = new JSONArray(selectedFiles);
+            List<JSONObject> array = new ArrayList<JSONObject>();
+            try {
+                for (int i = 0; i < selectedFiles.size(); i++) {
+                    JSONObject item = new JSONObject();
+                    item.put("path", selectedFiles.get(i));
+
+                    array.add(item);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            JSONArray jsonArray = new JSONArray(array);
             callback.success(jsonArray);
         } else {
             PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);

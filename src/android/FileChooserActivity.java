@@ -132,7 +132,7 @@ public class FileChooserActivity extends Activity {
 
     public void onOK(View source) {
         Intent intent = new Intent();
-        intent.putExtra("selectedFiles", this.selectedFiles.toArray());
+        intent.putExtra("selectedFiles", (ArrayList<String>) this.selectedFiles);
         this.setResult(RESULT_OK, intent);
         this.finish();
     }
