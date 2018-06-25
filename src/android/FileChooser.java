@@ -22,6 +22,8 @@ public class FileChooser extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, CordovaArgs args, CallbackContext callbackContext) throws JSONException {
+        this.callback = callbackContext;
+
         if (ACTION_OPEN.equals(action)) {
             this.open(callbackContext);
             return true;
@@ -32,17 +34,16 @@ public class FileChooser extends CordovaPlugin {
 
     private void open(CallbackContext callbackContext) {
         Intent intent = new Intent(this.cordova.getActivity(), com.gx.filechooser.FileChooserActivity.class);
-        cordova.startActivityForResult(this, intent, 0);
+        cordova.startActivityForResult(this, intent, FILECHOOSER_REQUEST_CODE);
 
         // PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
         // pluginResult.setKeepCallback(true);
-        // this.callback = callbackContext;
         // callbackContext.sendPluginResult(pluginResult);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (FILECHOOSER_REQUEST_CODE != requestCode) {
+        if (FILECHOOSER_REQUEST_CODE != requestCode || this.callback == null) {
             return;
         }
         if (Activity.RESULT_OK == resultCode) {
