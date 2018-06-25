@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FileChooserActivity">
+    tools:context="com.gx.filechooser.FileChooserActivity">
 
     <TextView
         android:id="@+id/textView"

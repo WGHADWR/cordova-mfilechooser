@@ -17,6 +17,10 @@
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
         </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.gx.filechooser.FileChooserActivity"
+              android:theme="@android:style/Theme.Holo.NoActionBar" />
+        </config-file>
 
         <source-file src="src/android/FileChooser.java" target-dir="src/com/gx/filechooser"/>
         <source-file src="src/android/FileChooserActivity.java" target-dir="src/com/gx/filechooser"/>
