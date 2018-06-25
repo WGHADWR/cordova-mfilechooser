@@ -24,6 +24,7 @@
 
         <source-file src="src/android/FileChooser.java" target-dir="src/com/gx/filechooser"/>
         <source-file src="src/android/FileChooserActivity.java" target-dir="src/com/gx/filechooser"/>
+        <source-file src="src/android/common/FileUtils.java" target-dir="src/com/gx/filechooser/common"/>
 
         <source-file src="src/android/res/layout/activity_filechooser.xml" target-dir="res/layout" />
         <source-file src="src/android/res/layout/listview_item.xml" target-dir="res/layout" />
