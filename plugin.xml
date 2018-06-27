@@ -24,7 +24,8 @@
 
         <source-file src="src/android/FileChooser.java" target-dir="src/com/gx/filechooser"/>
         <source-file src="src/android/FileChooserActivity.java" target-dir="src/com/gx/filechooser"/>
-        <source-file src="src/android/common/FileUtils.java" target-dir="src/com/gx/filechooser/common"/>
+        <source-file src="src/android/common/MediaStoreUtils.java" target-dir="src/com/gx/filechooser/common"/>
+        <source-file src="src/android/common/ThumbnailUtils.java" target-dir="src/com/gx/filechooser/common"/>
 
         <source-file src="src/android/res/layout/activity_filechooser.xml" target-dir="res/layout" />
         <source-file src="src/android/res/layout/listview_item.xml" target-dir="res/layout" />
@@ -33,6 +34,9 @@
         <source-file src="src/android/res/drawable/arrow_left.png" target-dir="res/drawable" />
         <source-file src="src/android/res/drawable/folder_default.png" target-dir="res/drawable" />
         <source-file src="src/android/res/drawable/file_x72.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/image_default_x24.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/list_x16.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/sd_x24.png" target-dir="res/drawable" />
 
         <framework src="src/android/mfilechooser.gradle" custom="true" type="gradleReference" />
     </platform>
