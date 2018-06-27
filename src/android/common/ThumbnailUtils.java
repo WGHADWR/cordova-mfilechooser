@@ -13,7 +13,7 @@ import java.util.Map;
 public class ThumbnailUtils {
 
     public static List<Map<String,String>> getAllPictures(Context context) {
-        List<Map<String,String>> picturemaps = new ArrayList<>();
+        List<Map<String,String>> picturemaps = new ArrayList<Map<String,String>>();
         Map<String,String> picturemap;
         ContentResolver cr = context.getContentResolver();
         //先得到缩略图的URL和对应的图片id
@@ -28,7 +28,7 @@ public class ThumbnailUtils {
                 null);
         if (cursor.moveToFirst()) {
             do {
-                picturemap = new HashMap<>();
+                picturemap = new HashMap<String,String>();
                 picturemap.put("image_id_path",cursor.getInt(0)+"");
                 picturemap.put("thumbnail_path",cursor.getString(1));
                 picturemaps.add(picturemap);

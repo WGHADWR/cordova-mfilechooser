@@ -24,6 +24,7 @@
 
         <source-file src="src/android/FileChooser.java" target-dir="src/com/gx/filechooser"/>
         <source-file src="src/android/FileChooserActivity.java" target-dir="src/com/gx/filechooser"/>
+        <source-file src="src/android/common/FileUtils.java" target-dir="src/com/gx/filechooser/common"/>
         <source-file src="src/android/common/MediaStoreUtils.java" target-dir="src/com/gx/filechooser/common"/>
         <source-file src="src/android/common/ThumbnailUtils.java" target-dir="src/com/gx/filechooser/common"/>
 

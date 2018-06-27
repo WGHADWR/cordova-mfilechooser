@@ -35,7 +35,7 @@ public class MediaStoreUtils {
         while (cursor.moveToNext()) {
             String path = new String(cursor.getBlob(0));
             String name = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
-            Map<String, Object> item = new HashMap<>();
+            Map<String, Object> item = new HashMap<String, Object>();
             item.put("title", name);
             item.put("path", path.substring(0, path.lastIndexOf(File.separator)));
 
@@ -46,7 +46,7 @@ public class MediaStoreUtils {
     }
 
     public List<Map<String, Object>> getThumbnails(Context context, String path, boolean isVideo) {
-        List<Map<String, Object>> thumbnails = new ArrayList<>();
+        List<Map<String, Object>> thumbnails = new ArrayList<Map<String, Object>>();
 
         String volumeName = "external";
         Uri uri = isVideo ? MediaStore.Video.Media.getContentUri(volumeName) : MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
