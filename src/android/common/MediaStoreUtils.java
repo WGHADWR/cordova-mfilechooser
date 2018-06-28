@@ -16,11 +16,6 @@ import java.util.Map;
 
 public class MediaStoreUtils {
 
-
-    public List<Map<String, Object>> getMedias() {
-        return null;
-    }
-
     public static List<Map<String, Object>> getCatalogs(Context context) {
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] columns = new String[] {
@@ -90,9 +85,65 @@ public class MediaStoreUtils {
 
         long imageIdLong = Long.parseLong(id);
         //via imageid get the bimap type thumbnail in thumbnail table.
-        Bitmap bitmap = MediaStore.Images.Thumbnails.getThumbnail(cr, imageIdLong, MediaStore.Images.Thumbnails.MINI_KIND, options);
+        return MediaStore.Images.Thumbnails.getThumbnail(cr, imageIdLong, MediaStore.Images.Thumbnails.MINI_KIND, options);
+    }
 
-        return bitmap;
+    public static Map<String, Object> getMedia(Context context, String file) {
+        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        String selection = MediaStore.MediaColumns.DATA + "=?";
+        String[] selectionArgs = new String[] {
+                file
+        };
+
+        String[] columns = new String[] {
+                //MediaStore.MediaColumns._ID, MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.SIZE
+        };
+
+        Cursor c = context.getContentResolver()
+                .query(uri, columns, selection, selectionArgs, null);
+        if (c == null) {
+            return null;
+        }
+        Map<String, Object> item = new HashMap<String, Object>();
+        if (c.moveToNext()) {
+            byte[] data = c.getBlob(c.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA));
+            item.put("id", c.getLong(c.getColumnIndexOrThrow(MediaStore.MediaColumns._ID)));
+            item.put("data", (new String(data)).trim());
+            item.put("size", c.getLong(c.getColumnIndexOrThrow(MediaStore.MediaColumns.SIZE)));
+            //item.put("title", c.getString(c.getColumnIndexOrThrow(MediaStore.MediaColumns.TITLE)));
+            item.put("displayName", c.getString(c.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME)));
+        }
+        c.close();
+
+        return item;
+    }
+
+    public static Map<String, Object> getThumbnail(Context context, String id) {
+        Uri uri = MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI;
+        String selection = MediaStore.Images.Thumbnails.IMAGE_ID + "=?";
+        String[] selectionArgs = new String[] {
+                id
+        };
+
+        String[] columns = new String[] {
+                //MediaStore.MediaColumns._ID, MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.SIZE
+        };
+
+        Cursor c = context.getContentResolver()
+                .query(uri, columns, selection, selectionArgs, null);
+        if (c == null) {
+            return null;
+        }
+        Map<String, Object> item = new HashMap<String, Object>();
+        if (c.moveToNext()) {
+            byte[] data = c.getBlob(c.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.DATA));
+            item.put("imageId", c.getLong(c.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.IMAGE_ID)));
+            item.put("data", (new String(data)).trim());
+            item.put("kind", c.getLong(c.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.KIND)));
+        }
+        c.close();
+
+        return item;
     }
 
 }

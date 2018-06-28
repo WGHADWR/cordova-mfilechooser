@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.gx.filechooser.common.FileUtils;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
 import org.apache.cordova.CordovaPlugin;
@@ -12,8 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 
 public class FileChooser extends CordovaPlugin {
 
@@ -35,7 +36,7 @@ public class FileChooser extends CordovaPlugin {
     }
 
     private void open(CallbackContext callbackContext) {
-        Intent intent = new Intent(this.cordova.getActivity(), com.gx.filechooser.FileChooserActivity.class);
+        Intent intent = new Intent(this.cordova.getActivity(), FileChooserActivity.class);
         cordova.startActivityForResult(this, intent, FILECHOOSER_REQUEST_CODE);
 
         // PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
@@ -50,20 +51,22 @@ public class FileChooser extends CordovaPlugin {
         }
         if (Activity.RESULT_OK == resultCode) {
             Bundle bundle = intent.getExtras();
-            List<String> selectedFiles = bundle.getStringArrayList("selectedFiles");
-
-            List<JSONObject> array = new ArrayList<JSONObject>();
+            String values = bundle.getString("selectedFiles");
+            JSONArray jsonArray = null;
             try {
-                for (int i = 0; i < selectedFiles.size(); i++) {
-                    JSONObject item = new JSONObject();
-                    item.put("path", selectedFiles.get(i));
-
-                    array.add(item);
+                File cacheDir = this.cordova.getActivity().getApplication().getCacheDir();
+                jsonArray = new JSONArray(values);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String thumbFile = object.getString("thumbnail");
+                    String fileName = thumbFile.substring(thumbFile.lastIndexOf(File.separator) + 1);
+                    String dest = cacheDir.getAbsolutePath() + File.separator + fileName;
+                    FileUtils.copy(thumbFile, dest);
+                    object.put("thumbnail", dest);
                 }
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            JSONArray jsonArray = new JSONArray(array);
             callback.success(jsonArray);
         } else {
             PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);

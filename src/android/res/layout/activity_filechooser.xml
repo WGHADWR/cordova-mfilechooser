@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="@dimen/actionBarSize"
         android:background="@color/colorPrimary">
 
         <LinearLayout

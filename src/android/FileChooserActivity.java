@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +33,9 @@ import android.widget.TextView;
 
 import com.gx.filechooser.common.FileUtils;
 import com.gx.filechooser.common.MediaStoreUtils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -218,8 +222,24 @@ public class FileChooserActivity extends Activity {
     }
 
     public void onOK(View source) {
+        JSONArray array = new JSONArray();
+        try {
+            for (String file : this.selectedFiles) {
+                JSONObject item = new JSONObject();
+                item.put("path", file);
+                if (FileUtils.isImage(file)) {
+                    Map<String, Object> media = MediaStoreUtils.getMedia(this, file);
+                    Map<String, Object> thumb = MediaStoreUtils.getThumbnail(this, media.get("id").toString());
+                    item.put("thumbnail", thumb.get("data"));
+                }
+                array.put(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Intent intent = new Intent();
-        intent.putExtra("selectedFiles", (ArrayList<String>) this.selectedFiles);
+        intent.putExtra("selectedFiles", array.toString());
         this.setResult(RESULT_OK, intent);
         this.finish();
     }
@@ -347,14 +367,14 @@ public class FileChooserActivity extends Activity {
                 item.put("image", defFolder);
             } else {
                 if (file.getName().endsWith(".jpg")) {
-                    List<Map<String, Object>> thumbnails = this.getThumbnails(file.getAbsolutePath(), false);
-                    if (!thumbnails.isEmpty()) {
-                        Map<String, Object> thumb = thumbnails.get(0);
-                        Bitmap bitmap = MediaStoreUtils.getThumbnailsFromId(this.getContentResolver(), thumb.get("image_id").toString());
-                        item.put("image", bitmap);
+                    Bitmap bitmap;
+                    Map<String, Object> thumb = MediaStoreUtils.getMedia(this, file.getAbsolutePath()); // this.getThumbnail(file.getAbsolutePath());
+                    if (thumb == null || thumb.isEmpty()) {
+                        bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                     } else {
-                        item.put("image", defFile);
+                        bitmap = MediaStoreUtils.getThumbnailsFromId(this.getContentResolver(), thumb.get("id").toString());
                     }
+                    item.put("image", bitmap);
                 } else {
                     item.put("image", defFile);
                 }
@@ -379,41 +399,4 @@ public class FileChooserActivity extends Activity {
         return getApplication().getResources().getIdentifier(id, defType, getApplication().getPackageName());
     }
 
-    public List<Map<String, Object>> getThumbnails(String path, boolean isVideo) {
-        List<Map<String, Object>> thumbnails = new ArrayList<Map<String, Object>>();
-
-        String volumeName = "external";
-        Uri uri = isVideo ? MediaStore.Video.Media.getContentUri(volumeName) : MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-//                .getContentUri(volumeName);
-        String selection = MediaStore.MediaColumns.DATA + "=?";
-        String[] selectionArgs = new String[] {
-                path
-        };
-
-        String[] columns = new String[] {
-                // MediaStore.MediaColumns._ID, MediaStore.MediaColumns.DATA
-        };
-
-        Cursor c = this.getContentResolver()
-                .query(uri, columns, selection, selectionArgs, null);
-        if (c == null) {
-            return thumbnails;
-        }
-
-        String[] columns0 = c.getColumnNames();
-
-        Map<String, Object> item = new HashMap<String, Object>();
-        if (c.moveToNext()) {
-            long id = c.getLong(0);
-            byte[] data = c.getBlob(1);
-            // Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-
-            item.put("image_id", id);
-            item.put("image_image", (new String(data)).trim());
-            thumbnails.add(item);
-        }
-        c.close();
-
-        return thumbnails;
-    }
 }
