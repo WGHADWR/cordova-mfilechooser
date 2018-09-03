@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="@dimen/actionBarSize"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -45,7 +45,8 @@
                 android:gravity="center|start"
                 android:onClick="openImageView"
                 android:paddingLeft="20dp"
-                android:text="图片" />
+                android:text="图片"
+                android:textColor="#333333" />
 
             <Button
                 android:id="@+id/btnSd"
@@ -58,8 +59,8 @@
                 android:gravity="center|start"
                 android:onClick="openFileView"
                 android:paddingLeft="20dp"
-                android:text="SCCARD"
-                />
+                android:text="SDCARD"
+                android:textColor="#333333" />
         </LinearLayout>
 
     </LinearLayout>
